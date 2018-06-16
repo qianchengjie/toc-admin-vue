@@ -9,22 +9,28 @@
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
+        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="phone" />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="password" />
-        <span class="show-pwd" @click="showPwd">
+        <el-input name="password" :type="passwordType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="code">
+          <el-button
+            @click.native="sendCode()"
+            slot="append">
+            {{ time === 30 ? $t('login.sendCode') : $t('login.alreadySend') + ' (' + time + ')'}}
+          </el-button>
+        </el-input>
+        <!-- <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye" />
-        </span>
+        </span> -->
       </el-form-item>
 
       <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
 
-      <div class="tips">
+      <!-- <div class="tips">
         <span>{{$t('login.username')}} : admin</span>
         <span>{{$t('login.password')}} : {{$t('login.any')}}</span>
       </div>
@@ -33,7 +39,7 @@
         <span>{{$t('login.password')}} : {{$t('login.any')}}</span>
       </div>
 
-      <el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{$t('login.thirdparty')}}</el-button>
+      <el-button class="thirdparty-button" type="primary" @click="showDialog=true">{{$t('login.thirdparty')}}</el-button> -->
     </el-form>
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog" append-to-body>
@@ -48,43 +54,70 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { validatePhone } from '@/utils/validate'
 import LangSelect from '@/components/LangSelect'
 import SocialSign from './socialsignin'
+import { mapActions } from 'vuex'
+import { showMsg } from '@/utils/message'
 
 export default {
   components: { LangSelect, SocialSign },
   name: 'login',
   data () {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (!validatePhone(value)) {
+        callback(new Error('Please enter the correct phone'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (value.length !== 4) {
+        callback(new Error('The code is 4 digits'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '1111111'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
-      passwordType: 'password',
+      passwordType: 'text',
       loading: false,
-      showDialog: false
+      showDialog: false,
+      time: 30
     }
   },
   methods: {
+    ...mapActions({
+      doSendCode: 'SendCode',
+      loginByCode: 'LoginByCode'
+    }),
+    sendCode () {
+      if (this.time === 30) {
+        if (validatePhone(this.loginForm.username)) {
+          this.time--
+          let timer = setInterval(() => {
+            this.time--
+            if (this.time === 0) {
+              this.time = 30
+              clearInterval(timer)
+            }
+          }, 1000)
+          this.doSendCode({ phone: this.loginForm.username }).then(() => {
+          })
+        } else {
+          showMsg('phone is error')
+        }
+      } else {
+        showMsg(this.$t('login.waitCode'))
+      }
+    },
     showPwd () {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -96,9 +129,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+          this.loginByCode({ phone: this.loginForm.username, code: this.loginForm.password }).then(() => {
             this.loading = false
-            this.$router.push({ path: '/' })
+            this.$router.push('/index/index')
           }).catch(() => {
             this.loading = false
           })
@@ -143,9 +176,8 @@ $light_gray: #eee;
 /* reset element-ui css */
 .login-container {
   .el-input {
-    display: inline-block;
     height: 47px;
-    width: 85%;
+    width: calc(100% - 38px);
     input {
       background: transparent;
       border: 0px;
@@ -202,8 +234,8 @@ $light_gray:#eee;
     color: $dark_gray;
     vertical-align: middle;
     width: 30px;
-    display: inline-block;
     &_login {
+      padding: 6px 0px 6px 14px;
       font-size: 20px;
     }
   }

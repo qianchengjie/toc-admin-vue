@@ -13,6 +13,14 @@ const getters = {
   setting: state => state.user.setting,
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
-  errorLogs: state => state.errorLog.logs
+  errorLogs: state => state.errorLog.logs,
+  topics: state => state.topic.topics,
+  topic: state => state.topic.topic,
+  unRevierTopics: state => state.topic.unRevierTopics,
+  sevenDaysTopicChangeArr: state => state.topic.sevenDaysTopicChangeArr,
+  users: state => state.userManagement.users,
+  userTotalPages: state => state.userManagement.totalPages,
+  roleList: state => state.userManagement.roleList,
+  sevenDaysUserChangeArr: state => state.userManagement.sevenDaysUserChangeArr
 }
 export default getters

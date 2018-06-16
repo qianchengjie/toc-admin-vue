@@ -262,3 +262,48 @@ export function deepClone (source) {
   })
   return targetObj
 }
+
+export function placeholder (s, o) {
+  if (typeof (o) === 'object') {
+    for (var key in o) {
+      s = s.replace(new RegExp('\\{' + key + '\\}', 'g'), o[key])
+    }
+    return s
+  } else {
+    for (var i = 1; i < arguments.length; i++) {
+      s = s.replace(new RegExp('\\{' + i + '\\}', 'g'), arguments[i])
+    }
+    return s
+  }
+}
+
+/**
+ * 获取最近7天日期
+ * getDay(0)  当天日期
+ * getDay(-7) 7天前日期
+ * 获取最近3天日期
+ * getDay(0)  当天日期
+ * getDay(-3) 3天前日期
+ * @param {*} day
+ */
+export function getDay (day) {
+  var today = new Date()
+  var targetdayMilliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day
+  // 注意，这行是关键代码
+  today.setTime(targetdayMilliseconds)
+
+  var tYear = today.getFullYear()
+  var tMonth = today.getMonth()
+  var tDate = today.getDate()
+  tMonth = doHandleMonth(tMonth + 1)
+  tDate = doHandleMonth(tDate)
+  return tYear + '-' + tMonth + '-' + tDate
+}
+
+function doHandleMonth (month) {
+  var m = month
+  if (month.toString().length === 1) {
+    m = '0' + month
+  }
+  return m
+}

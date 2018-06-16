@@ -1,13 +1,20 @@
 export default {
   route: {
+    index: '概览',
+    topic: '话题详情',
     dashboard: '首页',
     introduction: '简述',
     documentation: '文档',
     guide: '引导页',
-    permission: '权限测试页',
     pagePermission: '页面权限',
     directivePermission: '指令权限',
     icons: '图标',
+    userManagement: '用户管理',
+    userList: '用户列表',
+    permission: '用户权限',
+    topicManagement: '话题管理',
+    topicList: '话题列表',
+    reviewList: '审核列表',
     components: '组件',
     componentIndex: '介绍',
     tinymce: '富文本编辑器',
@@ -65,6 +72,9 @@ export default {
     logIn: '登录',
     username: '账号',
     password: '密码',
+    sendCode: '发送验证码',
+    alreadySend: '已发送',
+    waitCode: '请耐心等待验证码',
     any: '随便填',
     thirdparty: '第三方登录',
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
@@ -114,12 +124,38 @@ export default {
     draft: '草稿',
     delete: '删除',
     cancel: '取 消',
-    confirm: '确 定'
+    confirm: '确 定',
+    avatar: '头像',
+    nickname: '昵称',
+    phone: '手机',
+    roles: '角色',
+    sex: '性别',
+    followingNum: '关注数',
+    followedNum: '被关注数',
+    operation: '操作',
+    registerTime: '注册时间',
+    submitUser: '发布用户',
+    state: '状态',
+    submitTime: '发布时间',
+    upvoteNum: '点赞次数',
+    commentNum: '评论次数'
   },
   errorLog: {
     tips: '请点击右上角bug小图标',
     description: '现在的管理后台基本都是spa的形式了，它增强了用户体验，但同时也会增加页面出问题的可能性，可能一个小小的疏忽就导致整个页面的死锁。好在 Vue 官网提供了一个方法来捕获处理异常，你可以在其中进行错误处理或者异常上报。',
     documentation: '文档介绍'
+  },
+  index: {
+    allTopic: '总话题',
+    allUser: '总用户',
+    newUser: '今日新增用户',
+    newTopic: '今日新增话题'
+  },
+  chart: {
+    recentSevenDaysUserChange: '近七日用户数量变化',
+    recentSevenDaysTopicChange: '近七日话题数量变化',
+    newUser: '新增用户',
+    newTopic: '新增话题'
   },
   excel: {
     export: '导出',
@@ -139,5 +175,28 @@ export default {
     close: '关闭',
     closeOthers: '关闭其它',
     closeAll: '关闭所有'
+  },
+  btn: {
+    check: '查看',
+    changeRole: '修改角色',
+    del: '删除'
+  },
+  role: {
+    superAdmin: '超级管理员',
+    admin: '管理员'
+  },
+  sex: {
+    male: '男',
+    female: '女'
+  },
+  userState: {
+    normal: '正常',
+    lockUp: '已封号'
+  },
+  topicState: {
+    ok: '通过',
+    reject: '未通过',
+    unReview: '未审核',
+    del: '已删除'
   }
 }

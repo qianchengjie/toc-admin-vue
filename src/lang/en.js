@@ -1,15 +1,22 @@
 export default {
   route: {
+    index: 'index',
+    topic: 'topic',
     dashboard: 'Dashboard',
     introduction: 'Introduction',
     documentation: 'Documentation',
     guide: 'Guide',
-    permission: 'Permission',
     pagePermission: 'Page Permission',
     directivePermission: 'Directive Permission',
     icons: 'Icons',
+    userManagement: 'User Management',
+    userList: 'User List',
+    permission: 'Permission',
+    topicManagement: 'Topic Management',
+    topicList: 'Topic List',
     components: 'Components',
     componentIndex: 'Introduction',
+    reviewList: 'Review List',
     tinymce: 'Tinymce',
     markdown: 'Markdown',
     jsonEditor: 'JSON Editor',
@@ -63,6 +70,9 @@ export default {
   login: {
     title: 'Login Form',
     logIn: 'Log in',
+    sendCode: 'send code',
+    alreadySend: 'wait',
+    waitCode: 'please wait code',
     username: 'Username',
     password: 'Password',
     any: 'any',
@@ -114,7 +124,27 @@ export default {
     draft: 'Draft',
     delete: 'Delete',
     cancel: 'Cancel',
-    confirm: 'Confirm'
+    confirm: 'Confirm',
+    avatar: 'Avatar',
+    nickname: 'Nickname',
+    phone: 'Phone',
+    sex: 'Sex',
+    roles: 'Roles',
+    operation: 'Operation',
+    followingNum: 'Following Num',
+    followedNum: 'Followed Num',
+    registerTime: 'Register Time',
+    state: 'State',
+    submitTime: 'Submit Time',
+    submitUser: 'Submit User',
+    upvoteNum: 'Upvote Num',
+    commentNum: 'Comment Num'
+  },
+  index: {
+    allTopic: 'Topic Amount',
+    allUser: 'User Amount',
+    newUser: 'Today User',
+    newTopic: 'Today Topic'
   },
   errorLog: {
     tips: 'Please click the bug icon in the upper right corner',
@@ -139,5 +169,34 @@ export default {
     close: 'Close',
     closeOthers: 'Close Others',
     closeAll: 'Close All'
+  },
+  chart: {
+    recentSevenDaysUserChange: 'Recent Seven Days User Change',
+    recentSevenDaysTopicChange: 'Recent Seven Days Topic Change',
+    newUser: 'New User',
+    newTopic: 'New Topic'
+  },
+  btn: {
+    check: 'Check',
+    changeRole: 'Change Role',
+    del: 'Delete'
+  },
+  role: {
+    superAdmin: 'Super Admin',
+    admin: 'admin'
+  },
+  sex: {
+    male: 'male',
+    female: 'female'
+  },
+  userState: {
+    normal: 'normal',
+    lockUp: 'lock up'
+  },
+  topicState: {
+    ok: 'pass',
+    reject: 'reject pass',
+    unReview: 'unReview',
+    del: '已删除'
   }
 }

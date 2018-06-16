@@ -63,7 +63,7 @@ export default {
     },
     addViewTags () {
       const route = this.generateRoute()
-      if (!route) {
+      if (!route || route.meta.hiddenTag) {
         return false
       }
       this.$store.dispatch('addVisitedViews', route)
@@ -71,10 +71,12 @@ export default {
     moveToCurrentTag () {
       const tags = this.$refs.tag
       this.$nextTick(() => {
-        for (const tag of tags) {
-          if (tag.to === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag.$el)
-            break
+        if (typeof tags !== 'undefined') {
+          for (const tag of tags) {
+            if (tag.to === this.$route.path) {
+              this.$refs.scrollPane.moveToTarget(tag.$el)
+              break
+            }
           }
         }
       })

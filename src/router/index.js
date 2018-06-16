@@ -27,37 +27,80 @@ Vue.use(Router)
   }
 **/
 export const constantRouterMap = [
-  { path: '', component: Layout, redirct: '/login' },
+  { path: '', component: Layout, redirect: '/login' },
   { path: '/login', component: _import('login/index'), hidden: true },
   {
-    path: '/test',
+    path: '/index',
     component: Layout,
-    redirect: '/test/index',
-    children: [{
-      path: 'index',
-      component: _import('Test'),
-      hidden: false,
-      meta: {
-        title: 'permission',
-        icon: 'dashboard',
-        roles: ['admin', 'editor'],
-        noCache: true
+    children: [
+      {
+        path: 'index',
+        component: _import('index/Index'),
+        name: 'index',
+        meta: { title: 'index', icon: 'home' }
       }
-    }]
-  },
-  {
-    path: '/icon',
-    component: Layout,
-    children: [{
-      path: 'index',
-      component: _import('svg-icons/index'),
-      name: 'icons',
-      meta: { title: 'icons', icon: 'icon', noCache: true }
-    }]
+    ]
   }
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   children: [{
+  //     path: 'index',
+  //     component: _import('svg-icons/index'),
+  //     name: 'icons',
+  //     meta: { title: 'icons', icon: 'icon', noCache: true }
+  //   }]
+  // }
 ]
 
-export const asyncRouterMap = []
+export const asyncRouterMap = [
+  {
+    path: '/userManagement',
+    component: Layout,
+    alwaysShow: true,
+    meta: { title: 'userManagement', icon: 'component', roles: ['superAdmin'] },
+    children: [
+      {
+        path: 'userList',
+        component: _import('user-management/UserList'),
+        name: 'userList',
+        meta: { title: 'userList', icon: 'list', roles: ['superAdmin'] }
+      }
+      // {
+      //   path: 'permission',
+      //   component: _import('user-management/Permission'),
+      //   name: 'permission',
+      //   meta: { title: 'permission', icon: 'permission', roles: ['superAdmin'] }
+      // }
+    ]
+  },
+  {
+    path: '/topicManagement',
+    component: Layout,
+    meta: { title: 'topicManagement', icon: 'component', roles: ['admin', 'superAdmin'] },
+    children: [
+      {
+        path: 'topicList',
+        component: _import('topic-management/TopicList'),
+        name: 'topicList',
+        meta: { title: 'topicList', icon: 'list', roles: ['admin', 'superAdmin'] }
+      },
+      {
+        path: 'topic',
+        component: _import('topic-management/Topic'),
+        name: 'topic',
+        hidden: true,
+        meta: { title: 'topic', hiddenTag: true, roles: ['admin', 'superAdmin'], noCache: true }
+      },
+      {
+        path: 'reviewList',
+        component: _import('topic-management/ReviewList'),
+        name: 'reviewList',
+        meta: { title: 'reviewList', icon: 'list', roles: ['admin', 'superAdmin'] }
+      }
+    ]
+  }
+]
 
 export default new Router({
   // mode: 'history'

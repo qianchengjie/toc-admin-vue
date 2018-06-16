@@ -16,12 +16,22 @@ import 'normalize.css/normalize.css'// A modern alternative to CSS resets
 
 import 'element-ui/lib/theme-chalk/index.css'
 import Element from 'element-ui'
-
 import '@/styles/index.scss' // global css
 
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
+})
+
+Vue.prototype.$successMsg = msg => Element.Message({
+  message: msg,
+  type: 'success',
+  duration: 5 * 1000
+})
+Vue.prototype.$errMsg = msg => Element.Message({
+  message: msg,
+  type: 'error',
+  duration: 5 * 1000
 })
 
 // register global utility filters.

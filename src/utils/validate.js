@@ -6,6 +6,12 @@ export function isvalidUsername (str) {
   const validMap = ['admin', 'editor']
   return validMap.indexOf(str.trim()) >= 0
 }
+
+export function validatePhone (phone) {
+  const phoneRegex = /^1[3|4|5|8][0-9]{9}$/
+  return phoneRegex.test(phone)
+}
+
 /**
  * 合法uri
  * @param {*} textval
